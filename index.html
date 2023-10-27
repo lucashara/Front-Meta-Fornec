@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meta de Fornecedores</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <div id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Nome de usuário">
+    <input type="password" id="password" placeholder="Senha">
+    <button id="loginButton">Entrar</button>
+  </div>
+  
+  <div id="registerForm" style="display:none;">
+    <h2>Registrar</h2>
+    <input type="text" id="registerUsername" placeholder="Nome de usuário para registro">
+    <input type="password" id="registerPassword" placeholder="Senha para registro">
+    <input type="text" id="registerEmail" placeholder="E-mail para registro">
+    <button id="registerButton">Registrar-se</button>
+  </div>
+
+  <div id="forgotPasswordForm" style="display:none;">
+    <h2>Esqueci a senha</h2>
+    <input type="text" id="forgotUsername" placeholder="Nome de usuário para recuperar senha">
+    <button id="forgotPasswordButton">Esqueci a senha</button>
+  </div>
+
+  <div id="resendCodeForm" style="display:none;">
+    <h2>Reenviar Código</h2>
+    <input type="text" id="resendUsername" placeholder="Nome de usuário para reenviar código">
+    <button id="resendCodeButton">Reenviar código</button>
+  </div>
+
+  <div id="validateCodeForm" style="display:none;">
+    <h2>Validar Código</h2>
+    <input type="text" id="validateUsername" placeholder="Nome de usuário para validar código">
+    <input type="text" id="validateCode" placeholder="Código para validação">
+    <button id="validateCodeButton">Validar código</button>
+  </div>
+
+  <div id="uploadForm" style="display:none;">
+    <h2>Upload de Arquivo</h2>
+    <input type="file" id="fileInput" accept=".xlsx">
+    <button id="uploadButton">Enviar Arquivo</button>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
