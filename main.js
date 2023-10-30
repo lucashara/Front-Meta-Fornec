@@ -1,2 +1,2 @@
 import './login.js';
-import './upload.js';
+import './meta.js';
