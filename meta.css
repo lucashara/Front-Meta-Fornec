@@ -1,53 +1,26 @@
-/* Estilos Gerais */
+/* Fonte fallback se o Bootstrap não carregar */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Formulários */
-  div[id$="Form"] {
-    border: 1px solid #ccc;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  /* Botões */
-  button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Inputs */
-  input[type="text"],
-  input[type="password"],
-  input[type="file"] {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* Mensagens */
-  span[id$="Message"] {
-    display: block;
-    margin-top: 10px;
-    color: green;
-  }
-  
-  span.error {
-    color: red;
-  }
-  
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Sombra suave nos containers fora do card Bootstrap */
+div[id$="Form"] {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
+}
+
+/* Faz o file-input ocupar 100% */
+input[type="file"] {
+  width: 100%;
+}
+
+/* Estilos para mensagens de status de upload */
+#uploadMessage {
+  display: block;
+  margin-top: 0.75rem;
+}
+.text-success-custom {
+  color: #198754; /* cor "success" do Bootstrap */
+}
+.text-error-custom {
+  color: #dc3545; /* cor "danger" do Bootstrap */
+}
