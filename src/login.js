@@ -24,7 +24,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 const forgotStartButton = document.getElementById("forgotStart");
 const forgotSubmitButton = document.getElementById("forgotSubmit");
 
-/* --- função de alerta --- */
+/* --- Mostrar/ocultar alertas --- */
 function alertMsg(el, txt, type = "danger") {
   el.className = `alert alert-${type}`;
   el.style.display = "block";
@@ -37,7 +37,7 @@ function show(el) {
   el.style.display = "block";
 }
 
-/* --- se já houver sessão válida e grupo certo, já exibe upload --- */
+/* --- Restaura sessão se possível e checa grupos --- */
 (async () => {
   try {
     const session = await Auth.currentSession();
@@ -49,11 +49,27 @@ function show(el) {
       uploadForm.style.display = "block";
     }
   } catch {
-    /* sem sessão, fica na tela de login */
+    /* sem sessão, permanece na tela de login */
   }
 })();
 
-/* --- clique em Entrar (com spinner) --- */
+/* --- função que dispara o clique no botão de login --- */
+function triggerLogin() {
+  loginButton.click();
+}
+
+/* --- permite apertar Enter para logar --- */
+usernameInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") triggerLogin();
+});
+passwordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") triggerLogin();
+});
+newPasswordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") triggerLogin();
+});
+
+/* --- clique em Entrar (com spinner e desabilita até resposta) --- */
 loginButton.onclick = async () => {
   hide(msgLogin);
 
