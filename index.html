@@ -4,28 +4,27 @@
     <meta charset="UTF-8" />
     <title>Meta de Fornecedores</title>
 
-    <!-- Favicon -->
+    <!-- Ícone -->
     <link rel="icon" href="/brf1.ico" />
 
-    <!-- Bootstrap 5 via CDN -->
+    <!-- Bootstrap 5 (CSS) -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
 
-    <!-- CSS personalizados -->
+    <!-- CSS custom do projeto -->
     <link rel="stylesheet" href="/login.css" />
     <link rel="stylesheet" href="/meta.css" />
   </head>
   <body class="bg-light">
-    <!-- LOGIN -->
+    <!-- LOGIN (mantido conforme seu projeto) -->
     <div id="loginForm" class="container py-5">
       <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
           <div class="card shadow-sm">
             <div class="card-body">
               <h2 class="card-title text-center mb-4">Login</h2>
-
               <div class="mb-3">
                 <input
                   class="form-control"
@@ -52,9 +51,7 @@
               <button id="loginButton" class="btn btn-primary w-100">
                 Entrar
               </button>
-
               <div id="msgLogin" style="display: none"></div>
-
               <div class="text-center mt-3">
                 <a href="#" id="forgotLink">Esqueci a senha</a>
               </div>
@@ -64,14 +61,13 @@
       </div>
     </div>
 
-    <!-- FORGOT PASSWORD -->
+    <!-- FORGOT PASSWORD (mantido) -->
     <div id="forgotForm" class="container py-5" style="display: none">
       <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
           <div class="card shadow-sm">
             <div class="card-body">
               <h2 class="card-title text-center mb-4">Redefinir senha</h2>
-
               <div class="mb-3">
                 <input
                   class="form-control"
@@ -118,32 +114,148 @@
     <!-- UPLOAD -->
     <div id="uploadForm" class="container py-5" style="display: none">
       <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-lg-10 col-xl-9">
           <div class="card shadow-sm">
-            <div class="card-body text-center">
-              <h2 class="card-title mb-4">Upload de Arquivo</h2>
+            <div class="card-body">
+              <div
+                class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2"
+              >
+                <h2 class="card-title mb-0">Upload de Arquivo</h2>
+                <span id="apiVersion" class="badge text-bg-light">API …</span>
+              </div>
 
-              <input
-                type="file"
-                class="form-control mb-3"
-                id="fileInput"
-                accept=".xlsx"
-              />
-              <button id="uploadButton" class="btn btn-primary w-100">
-                Enviar Arquivo
-              </button>
+              <!-- INSTRUÇÕES: DATA apenas MM/AAAA ou célula Data (dia 1) -->
+              <div class="alert alert-info" role="alert">
+                <h5 class="alert-heading">Como preencher a planilha</h5>
+                <ol class="mb-2">
+                  <li>
+                    Colunas obrigatórias: <code>QTVENDAPREV</code>,
+                    <code>QTPESOPREV</code>, <code>VLVENDAPREV</code>,
+                    <code>MIXPREV</code>, <code>CLIPOSPREV</code>,
+                    <code>CODIGO</code>, <code>CODFILIAL</code>,
+                    <code>CODUSUR</code>, <code>DATA</code>.
+                  </li>
+                  <li>
+                    <strong>DATA:</strong> digite <code>MM/AAAA</code> (ex.:
+                    <code>08/2025</code>) ou use célula de <em>Data</em> no
+                    Excel com o <u>dia 1</u>. O sistema normaliza e responde
+                    datas em <b>DD/MM/AAAA</b>.
+                  </li>
+                  <li>
+                    Evite duplicar a mesma combinação de <code>CODIGO</code> +
+                    <code>CODFILIAL</code> + <code>CODUSUR</code> +
+                    <code>DATA</code>.
+                  </li>
+                </ol>
+                <!-- Link DIRETO para o arquivo hospedado no seu servidor -->
+                <a
+                  class="btn btn-outline-secondary btn-sm"
+                  href="./assets/modelo_meta_fornecedor.xlsx"
+                  download
+                >
+                  Baixar modelo (.xlsx)
+                </a>
+              </div>
 
-              <span id="uploadMessage" class="d-block mt-3"></span>
+              <div class="row g-2 align-items-end">
+                <div class="col-md-6">
+                  <label for="fileInput" class="form-label"
+                    >Arquivo (.xlsx)</label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="fileInput"
+                    accept=".xlsx"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <div class="form-check mt-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="previewCheck"
+                    />
+                    <label class="form-check-label" for="previewCheck">
+                      Simular (não gravar)
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-3 d-grid">
+                  <button id="uploadButton" class="btn btn-primary">
+                    <span class="btn-text">Enviar</span>
+                    <!-- Spinner Bootstrap: exibido apenas durante carregamento -->
+                    <span
+                      class="spinner-border spinner-border-sm d-none ms-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                </div>
+              </div>
 
-              <button id="logoutBtn" class="btn btn-outline-secondary mt-4">
-                Sair
-              </button>
+              <!-- Mensagem curta (status) -->
+              <div id="uploadMessage" class="mt-3"></div>
+
+              <!-- Resumo do processamento -->
+              <div id="resultSummary" class="mt-3"></div>
+
+              <!-- Filtros e busca (sem export) -->
+              <div
+                id="filters"
+                class="row g-2 align-items-center mt-2"
+                style="display: none"
+              >
+                <div class="col-sm-4">
+                  <select id="actionFilter" class="form-select form-select-sm">
+                    <option value="">Ação: todas</option>
+                    <option value="inclusao">Inclusão</option>
+                    <option value="alteracao">Alteração</option>
+                    <option value="sem_alteracao">Sem alteração</option>
+                    <option value="falha">Falha</option>
+                  </select>
+                </div>
+                <div class="col-sm-8">
+                  <input
+                    id="searchBox"
+                    class="form-control form-control-sm"
+                    placeholder="Buscar por código/filial/usuário…"
+                  />
+                </div>
+              </div>
+
+              <!-- Tabela de detalhes -->
+              <div
+                id="resultDetails"
+                class="table-responsive mt-2"
+                style="display: none"
+              >
+                <table class="table table-sm table-striped align-middle">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Ação</th>
+                      <th>Chave</th>
+                      <th>Alterações</th>
+                      <th>Erro</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resultTableBody"></tbody>
+                </table>
+              </div>
+
+              <div class="d-flex justify-content-end mt-3">
+                <button id="logoutBtn" class="btn btn-outline-secondary">
+                  Sair
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- JS (módulos) -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

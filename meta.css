@@ -1,3 +1,8 @@
+/* meta.css
+   ---------------------------------------------------------------------------
+   Estilos leves para melhorar a leitura e feedback do upload.
+   --------------------------------------------------------------------------- */
+
 /* Fonte fallback se o Bootstrap não carregar */
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -8,19 +13,30 @@ div[id$="Form"] {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
 }
 
-/* Faz o file-input ocupar 100% */
+/* File input 100% */
 input[type="file"] {
   width: 100%;
 }
 
-/* Estilos para mensagens de status de upload */
+/* Mensagens de status */
 #uploadMessage {
   display: block;
   margin-top: 0.75rem;
 }
 .text-success-custom {
-  color: #198754; /* cor "success" do Bootstrap */
+  color: #198754;
 }
 .text-error-custom {
-  color: #dc3545; /* cor "danger" do Bootstrap */
+  color: #dc3545;
+}
+
+/* Tabela de resultados */
+#resultDetails table td,
+#resultDetails table th {
+  vertical-align: middle;
+}
+
+/* Badges alinhadas no resumo */
+#resultSummary .badge {
+  margin-left: 0.25rem;
 }
